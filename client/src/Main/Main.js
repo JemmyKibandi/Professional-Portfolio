@@ -3,25 +3,57 @@
 import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
 
+// Import your extra content components
+import HomeContent from "./Components/Home/Home"
+import AboutContent from "./Components/About/About"
+import ProjectsContent from "./Components/Projects/Projects"
+import ContactContent from "./Components/Contact/Contact"
+import UpdatesContent from "./Components/Updates/Updates"
+
 export default function Main() {
     const allItems = [
-        { icon: "🏠", label: "Home", description: "This is the main page" },
-        { icon: "🥬", label: "About", description: "A leafy green used in salads and sandwiches." },
-        { icon: "🧀", label: "Projects", description: "A dairy product made from curdled milk, delicious in many dishes!" },
-        { icon: "🥕", label: "Contact", description: "A crunchy orange vegetable rich in vitamin A." },
-        { icon: "🍌", label: "Daily Updates", description: "A sweet and potassium-rich fruit, great for energy." },
+        { icon: "🏠", label: "Home", key: "home" },
+        { icon: "🤔", label: "About", key: "about" },
+        { icon: "⚒️", label: "Projects", key: "projects" },
+        { icon: "🤳", label: "Contact", key: "contact" },
+        { icon: "📰", label: "Daily Updates", key: "updates" },
     ]
 
-    // Show all tabs
-    const tabs = allItems
+    const contentMap = {
+        home: {
+            title: "Home",
+            description: "Welcome to the main page!",
+            extraContent: <HomeContent />,
+        },
+        about: {
+            title: "About",
+            description: "A leafy green used in salads and sandwiches.",
+            extraContent: <AboutContent />,
+        },
+        projects: {
+            title: "Projects",
+            description: "A dairy product made from curdled milk.",
+            extraContent: <ProjectsContent />,
+        },
+        contact: {
+            title: "Contact",
+            description: "A crunchy orange vegetable rich in vitamin A.",
+            extraContent: <ContactContent />,
+        },
+        updates: {
+            title: "Daily Updates",
+            description: "A sweet and potassium-rich fruit, great for energy.",
+            extraContent: <UpdatesContent />,
+        },
+    }
 
-    const [selectedTab, setSelectedTab] = useState(tabs[0])
+    const [selectedTab, setSelectedTab] = useState(allItems[0])
 
     return (
         <div style={container}>
             <nav style={nav}>
                 <ul style={tabsContainer}>
-                    {tabs.map((item) => (
+                    {allItems.map((item) => (
                         <motion.li
                             key={item.label}
                             initial={false}
@@ -53,8 +85,13 @@ export default function Main() {
                         transition={{ duration: 0.3 }}
                         style={textContainer}
                     >
-                        <h1 style={textStyle}>{selectedTab ? selectedTab.label : "😋"}</h1>
-                        <p style={descriptionStyle}>{selectedTab ? selectedTab.description : ""}</p>
+                        {selectedTab && (
+                            <>
+                                <h1 style={textStyle}>{contentMap[selectedTab.key]?.title}</h1>
+                                <p style={descriptionStyle}>{contentMap[selectedTab.key]?.description}</p>
+                                {contentMap[selectedTab.key]?.extraContent}
+                            </>
+                        )}
                     </motion.div>
                 </AnimatePresence>
             </main>
@@ -62,6 +99,7 @@ export default function Main() {
     )
 }
 
+// --- Styles ---
 const container = {
     width: "100vw",
     height: "100vh",
@@ -91,7 +129,7 @@ const tabsContainer = {
     ...tabsStyles,
     display: "flex",
     width: "100%",
-    overflowX: "auto", // Enables horizontal scrolling if there are too many tabs
+    overflowX: "auto",
     paddingBottom: "5px",
 }
 
@@ -106,7 +144,7 @@ const tab = {
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
-    minWidth: "120px", // Ensures tabs are not too small
+    minWidth: "120px",
     userSelect: "none",
     color: "#0f1115",
     margin: "0 5px",
