@@ -18,34 +18,34 @@ export default function Main() {
         { icon: "🤳", label: "Contact", key: "contact" },
         { icon: "📰", label: "Daily Updates", key: "updates" },
     ]
-
     const contentMap = {
         home: {
             title: "Home",
-            description: "Welcome to the main page!",
+            description: "Welcome to my personal portfolio! Here, you can explore my work, skills, and experience in various projects.",
             extraContent: <HomeContent />,
         },
         about: {
             title: "About",
-            description: "A leafy green used in salads and sandwiches.",
+            description: "I’m a passionate developer with a knack for creating intuitive and user-friendly digital experiences. Learn more about my journey and background.",
             extraContent: <AboutContent />,
         },
         projects: {
             title: "Projects",
-            description: "A dairy product made from curdled milk.",
+            description: "Check out the projects I’ve worked on. From web apps to creative solutions, each project reflects my skills and dedication to innovation.",
             extraContent: <ProjectsContent />,
         },
         contact: {
             title: "Contact",
-            description: "A crunchy orange vegetable rich in vitamin A.",
+            description: "Feel free to reach out! Whether it's for a project collaboration, job inquiry, or just to say hello, I’d love to connect with you.",
             extraContent: <ContactContent />,
         },
         updates: {
             title: "Daily Updates",
-            description: "A sweet and potassium-rich fruit, great for energy.",
+            description: "Stay up-to-date with my latest activities, blog posts, or any new projects I'm working on. I share insights regularly on what’s happening in my world.",
             extraContent: <UpdatesContent />,
         },
     }
+    
 
     const [selectedTab, setSelectedTab] = useState(allItems[0])
 
